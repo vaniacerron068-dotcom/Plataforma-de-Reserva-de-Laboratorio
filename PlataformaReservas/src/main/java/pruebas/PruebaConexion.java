@@ -1,7 +1,7 @@
 
-package com.reservas;
+package pruebas;
 
-import com.reservas.conexion.Conexion;
+import conexion.Conexion;
 import java.sql.Connection;
 import java.sql.SQLException;
 

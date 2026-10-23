@@ -1,2 +1,7 @@
 com\reservas\conexion\Conexion.class
+com\reservas\modelo\Horario.class
+com\reservas\modelo\Usuario.class
 com\reservas\PruebaConexion.class
+com\reservas\modelo\Espacio.class
+com\reservas\modelo\Reserva.class
+com\reservas\modelo\Sede.class

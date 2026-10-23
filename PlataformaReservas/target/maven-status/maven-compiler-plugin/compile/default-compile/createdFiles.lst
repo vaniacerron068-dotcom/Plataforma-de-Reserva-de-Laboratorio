@@ -1,5 +1,6 @@
 pruebas\PruebaConexion.class
 modelo\Horario.class
+servicio\AutenticacionServicio.class
 modelo\Sede.class
 modelo\Reserva.class
 dao\EspacioDAO.class
@@ -8,3 +9,4 @@ conexion\Conexion.class
 dao\ReservaDAO.class
 modelo\Espacio.class
 modelo\Usuario.class
+servicio\ReservaServicio.class

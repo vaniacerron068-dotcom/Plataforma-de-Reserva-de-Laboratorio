@@ -1,7 +1,10 @@
-C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\com\reservas\modelo\Horario.java
-C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\com\reservas\PruebaConexion.java
-C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\com\reservas\modelo\Reserva.java
-C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\com\reservas\modelo\Espacio.java
-C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\com\reservas\conexion\Conexion.java
-C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\com\reservas\modelo\Usuario.java
-C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\com\reservas\modelo\Sede.java
+C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\modelo\Espacio.java
+C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\modelo\Usuario.java
+C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\pruebas\PruebaConexion.java
+C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\modelo\Horario.java
+C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\modelo\Reserva.java
+C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\dao\EspacioDAO.java
+C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\dao\UsuarioDAO.java
+C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\dao\ReservaDAO.java
+C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\modelo\Sede.java
+C:\Users\Giuss\Downloads\ANÁLISIS Y DISEÑO DE SISTEMAS DE INFORMACIÓN\ADS\Plataforma-de-Reserva-de-Laboratorio\PlataformaReservas\src\main\java\conexion\Conexion.java

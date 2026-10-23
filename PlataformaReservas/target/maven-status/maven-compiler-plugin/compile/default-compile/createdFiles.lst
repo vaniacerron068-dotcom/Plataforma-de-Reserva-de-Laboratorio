@@ -1,7 +1,10 @@
-com\reservas\conexion\Conexion.class
-com\reservas\modelo\Horario.class
-com\reservas\modelo\Usuario.class
-com\reservas\PruebaConexion.class
-com\reservas\modelo\Espacio.class
-com\reservas\modelo\Reserva.class
-com\reservas\modelo\Sede.class
+pruebas\PruebaConexion.class
+modelo\Horario.class
+modelo\Sede.class
+modelo\Reserva.class
+dao\EspacioDAO.class
+dao\UsuarioDAO.class
+conexion\Conexion.class
+dao\ReservaDAO.class
+modelo\Espacio.class
+modelo\Usuario.class

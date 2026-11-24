@@ -11,7 +11,14 @@ import {
   Sparkles,
   ArrowRight
 } from 'lucide-react';
-import { reservasService } from '../services/storageService';
+
+// =============================================================================
+// ReservaModal.jsx — SOLO VISUAL (sin lógica de backend)
+// =============================================================================
+// El formulario se renderiza completo visualmente con todos sus pasos.
+// Al confirmar, genera una reserva de demo visual (sin persistencia).
+// La lógica real de creación de reservas la implementará el backend.
+// =============================================================================
 
 export default function ReservaModal({ 
   espacio, 
@@ -28,11 +35,10 @@ export default function ReservaModal({
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Inicializar fecha por defecto en la fecha de mañana o hoy
+  // Inicializar fecha por defecto
   useEffect(() => {
     if (isOpen) {
       const hoy = new Date();
-      // Formato YYYY-MM-DD
       const anio = hoy.getFullYear();
       const mes = String(hoy.getMonth() + 1).padStart(2, '0');
       const dia = String(hoy.getDate()).padStart(2, '0');
@@ -47,16 +53,11 @@ export default function ReservaModal({
 
   const sede = sedes.find(s => s.idSede === espacio.idSede);
 
-  // Calcular disponibilidad de cada slot de horario para la fecha seleccionada
-  const disponibilidadHorarios = horarios.map((h) => {
-    const disponible = fecha 
-      ? reservasService.verificarDisponibilidad(espacio.idEspacio, h.idHorario, fecha)
-      : true;
-    return {
-      ...h,
-      disponible
-    };
-  });
+  // Todos los horarios se muestran como disponibles (visual only)
+  const disponibilidadHorarios = horarios.map((h) => ({
+    ...h,
+    disponible: true  // Sin verificación real — el backend lo implementará
+  }));
 
   const sugerenciasMotivo = [
     "Práctica libre de desarrollo de software",
@@ -70,46 +71,49 @@ export default function ReservaModal({
     e.preventDefault();
     setError('');
 
-    if (!usuarioActual) {
-      setError('Debes iniciar sesión para confirmar una reserva.');
-      return;
-    }
-
+    // Validaciones visuales básicas (solo UI, sin lógica de negocio)
     if (!fecha) {
       setError('Selecciona una fecha válida.');
       return;
     }
-
     if (!idHorario) {
       setError('Selecciona un bloque de horario disponible.');
       return;
     }
-
     if (!motivo.trim()) {
       setError('Debes ingresar el motivo académico de la reserva.');
       return;
     }
 
-    try {
-      setLoading(true);
-      const nuevaReserva = reservasService.crearReserva({
-        idUsuario: usuarioActual.idUsuario,
-        usuarioNombre: `${usuarioActual.nombres} ${usuarioActual.apellidos}`,
-        idEspacio: espacio.idEspacio,
-        idHorario: Number(idHorario),
-        fecha,
-        motivo
-      });
+    // Generar reserva de demo visual (sin persistencia)
+    setLoading(true);
+    const horario = horarios.find(h => h.idHorario === Number(idHorario));
+    const codigoVerificacion = `LAB-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
 
-      onReservaExitosa(nuevaReserva);
-    } catch (err) {
-      setError(err.message || 'Error al procesar la reserva.');
-    } finally {
+    const reservaDemo = {
+      idReserva: Date.now(),
+      idUsuario: usuarioActual?.idUsuario,
+      usuarioNombre: `${usuarioActual?.nombres} ${usuarioActual?.apellidos}`,
+      idEspacio: espacio.idEspacio,
+      espacioNombre: espacio.nombre,
+      idSede: espacio.idSede,
+      sedeNombre: sede ? sede.nombre : 'Sede Principal',
+      idHorario: Number(idHorario),
+      horarioEtiqueta: horario ? horario.etiqueta : 'Horario asignado',
+      fecha,
+      motivo: motivo.trim(),
+      estado: 'CONFIRMADA',
+      codigoVerificacion,
+      fechaRegistro: new Date().toISOString()
+    };
+
+    // Simular un breve delay visual
+    setTimeout(() => {
       setLoading(false);
-    }
+      onReservaExitosa(reservaDemo);
+    }, 400);
   };
 
-  // Fecha mínima para el input (hoy)
   const fechaMinima = new Date().toISOString().split('T')[0];
 
   return (
@@ -153,7 +157,7 @@ export default function ReservaModal({
               value={fecha} 
               onChange={(e) => {
                 setFecha(e.target.value);
-                setIdHorario(''); // Resetear horario al cambiar de fecha
+                setIdHorario('');
               }}
               required 
               className="field-input-date"

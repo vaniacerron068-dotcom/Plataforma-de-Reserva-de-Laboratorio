@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import HeroStats from './components/HeroStats';
@@ -8,27 +8,33 @@ import MisReservas from './components/MisReservas';
 import AdminDashboard from './components/AdminDashboard';
 import ComprobanteModal from './components/ComprobanteModal';
 import AuthModal from './components/AuthModal';
-import { 
-  inicializarStorage, 
-  authService, 
-  espaciosService, 
-  reservasService 
-} from './services/storageService';
-import { CheckCircle2, AlertCircle, Building2, ShieldCheck, Heart } from 'lucide-react';
+import {
+  SEDES_INICIALES,
+  HORARIOS_INICIALES,
+  ESPACIOS_INICIALES,
+  USUARIOS_INICIALES,
+  RESERVAS_INICIALES
+} from './data/initialData';
+import { CheckCircle2, AlertCircle, Building2, ShieldCheck } from 'lucide-react';
+
+// =============================================================================
+// App.jsx — SOLO VISUAL (sin lógica de backend)
+// =============================================================================
+// Toda la lógica de negocio (localStorage, validaciones, CRUD) fue removida.
+// Los datos se cargan directamente de initialData.js como demo visual estática.
+// El compañero de backend implementará las rutas y servicios reales.
+// =============================================================================
 
 export default function App() {
-  // Inicialización de persistencia local
-  useEffect(() => {
-    inicializarStorage();
-  }, []);
+  // --- Estado visual de la aplicación (datos demo, sin persistencia) ---
+  const [vistaActual, setVistaActual] = useState('espacios');
+  const [usuarioActual, setUsuarioActual] = useState(USUARIOS_INICIALES[0]); // Demo: inicia con estudiante
 
-  // Estado general de la aplicación
-  const [vistaActual, setVistaActual] = useState('espacios'); // 'espacios' | 'mis-reservas' | 'admin'
-  const [usuarioActual, setUsuarioActual] = useState(() => authService.obtenerSesionActiva());
-  const [espacios, setEspacios] = useState(() => espaciosService.obtenerEspacios());
-  const [sedes, setSedes] = useState(() => espaciosService.obtenerSedes());
-  const [horarios, setHorarios] = useState(() => espaciosService.obtenerHorarios());
-  const [reservas, setReservas] = useState(() => reservasService.obtenerTodas());
+  // Datos de demostración (estáticos, solo para visualización)
+  const [espacios] = useState(ESPACIOS_INICIALES);
+  const [sedes] = useState(SEDES_INICIALES);
+  const [horarios] = useState(HORARIOS_INICIALES);
+  const [reservas] = useState(RESERVAS_INICIALES);
 
   // Estados de modales
   const [espacioParaReservar, setEspacioParaReservar] = useState(null);
@@ -47,15 +53,8 @@ export default function App() {
     }, 4500);
   };
 
-  // Recargar datos desde el almacenamiento local
-  const recargarDatos = () => {
-    setEspacios(espaciosService.obtenerEspacios());
-    setReservas(reservasService.obtenerTodas());
-    setSedes(espaciosService.obtenerSedes());
-    setHorarios(espaciosService.obtenerHorarios());
-  };
+  // --- Handlers visuales (sin lógica de backend) ---
 
-  // Manejador para abrir modal de reserva
   const handleSeleccionarEspacio = (espacio) => {
     if (!usuarioActual) {
       setAuthModalOpen(true);
@@ -66,21 +65,20 @@ export default function App() {
     setReservaModalOpen(true);
   };
 
-  // Manejador al concretar reserva exitosa
   const handleReservaExitosa = (nuevaReserva) => {
-    recargarDatos();
+    // Visual only: cierra modal y muestra comprobante de demo
     setReservaModalOpen(false);
     setReservaParaComprobante(nuevaReserva);
     setComprobanteModalOpen(true);
-    mostrarToast(`¡Reserva confirmada con éxito! Código: ${nuevaReserva.codigoVerificacion}`, 'exito');
+    mostrarToast(`¡Reserva visual de demostración! Código: ${nuevaReserva.codigoVerificacion}`, 'exito');
   };
 
-  // Cambiar rol de usuario (demostración ágil)
+  // Cambiar rol de usuario (solo visual para demo)
   const handleCambiarRol = (nuevoRol) => {
-    const usuarioCambiado = authService.cambiarRolRapido(nuevoRol);
+    const usuarioCambiado = USUARIOS_INICIALES.find(u => u.rol === nuevoRol);
     if (usuarioCambiado) {
       setUsuarioActual(usuarioCambiado);
-      mostrarToast(`Sesión cambiada a perfil: ${nuevoRol}`, 'exito');
+      mostrarToast(`Vista cambiada a perfil: ${nuevoRol}`, 'exito');
       if (nuevoRol === 'ADMINISTRADOR') {
         setVistaActual('admin');
       } else if (vistaActual === 'admin') {
@@ -89,14 +87,13 @@ export default function App() {
     }
   };
 
-  // Cierre de sesión
+  // Cierre de sesión (solo visual)
   const handleCerrarSesion = () => {
-    authService.cerrarSesion();
     setUsuarioActual(null);
     if (vistaActual === 'admin' || vistaActual === 'mis-reservas') {
       setVistaActual('espacios');
     }
-    mostrarToast('Has cerrado sesión correctamente.', 'info');
+    mostrarToast('Has cerrado sesión (demo visual).', 'info');
   };
 
   // Ver comprobante digital
@@ -152,7 +149,7 @@ export default function App() {
             reservas={reservas}
             usuarioActual={usuarioActual}
             onVerComprobante={handleVerComprobante}
-            onActualizarLista={recargarDatos}
+            onActualizarLista={() => mostrarToast('Actualización pendiente de backend.', 'info')}
             onIrExplorar={() => setVistaActual('espacios')}
           />
         )}
@@ -162,7 +159,7 @@ export default function App() {
             espacios={espacios}
             reservas={reservas}
             sedes={sedes}
-            onActualizarDatos={recargarDatos}
+            onActualizarDatos={() => mostrarToast('Actualización pendiente de backend.', 'info')}
           />
         )}
       </main>

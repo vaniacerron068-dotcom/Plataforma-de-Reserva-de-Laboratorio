@@ -16,7 +16,14 @@ import {
   ShieldCheck,
   FileSpreadsheet
 } from 'lucide-react';
-import { espaciosService, reservasService } from '../services/storageService';
+
+// =============================================================================
+// AdminDashboard.jsx — SOLO VISUAL (sin lógica de backend)
+// =============================================================================
+// El panel de administración se renderiza completo visualmente.
+// Las acciones (cambiar estado, crear espacio, gestionar reservas) solo
+// muestran mensajes indicando que el backend debe implementar la funcionalidad.
+// =============================================================================
 
 export default function AdminDashboard({ 
   espacios, 
@@ -24,12 +31,12 @@ export default function AdminDashboard({
   sedes, 
   onActualizarDatos 
 }) {
-  const [tabAdmin, setTabAdmin] = useState('espacios'); // 'espacios' | 'reservas'
+  const [tabAdmin, setTabAdmin] = useState('espacios');
   const [busquedaReserva, setBusquedaReserva] = useState('');
   const [filtroEstadoReserva, setFiltroEstadoReserva] = useState('TODAS');
   const [modalNuevoEspacio, setModalNuevoEspacio] = useState(false);
   
-  // Form nuevo espacio
+  // Form nuevo espacio (solo visual)
   const [nuevoNombre, setNuevoNombre] = useState('');
   const [nuevoIdSede, setNuevoIdSede] = useState('1');
   const [nuevoTipo, setNuevoTipo] = useState('LABORATORIO');
@@ -38,50 +45,34 @@ export default function AdminDashboard({
   const [nuevoEquipamiento, setNuevoEquipamiento] = useState('PCs Core i7, Proyector Láser, Pizarra Smart, Conexión Wi-Fi');
   const [mensajeAdmin, setMensajeAdmin] = useState(null);
 
-  // KPIs
+  // KPIs (calculados desde datos de demo)
   const totalEspacios = espacios.length;
   const espaciosDisponibles = espacios.filter(e => e.estado === 'DISPONIBLE').length;
   const espaciosMantenimiento = espacios.filter(e => e.estado === 'MANTENIMIENTO').length;
   const totalReservas = reservas.length;
   const reservasConfirmadas = reservas.filter(r => r.estado === 'CONFIRMADA').length;
 
+  // Acciones visuales (sin lógica real)
   const handleToggleEstadoEspacio = (espacio) => {
-    const nuevoEstado = espacio.estado === 'DISPONIBLE' ? 'MANTENIMIENTO' : 'DISPONIBLE';
-    espaciosService.cambiarEstadoEspacio(espacio.idEspacio, nuevoEstado);
-    onActualizarDatos();
-    setMensajeAdmin(`El estado de "${espacio.nombre}" fue cambiado a ${nuevoEstado}.`);
+    setMensajeAdmin(`Acción pendiente de backend: cambiar estado de "${espacio.nombre}".`);
     setTimeout(() => setMensajeAdmin(null), 3500);
   };
 
   const handleCrearEspacio = (e) => {
     e.preventDefault();
-    if (!nuevoNombre.trim() || !nuevaDescripcion.trim()) return;
-
-    espaciosService.crearEspacio({
-      nombre: nuevoNombre.trim(),
-      idSede: Number(nuevoIdSede),
-      tipo: nuevoTipo,
-      capacidad: Number(nuevaCapacidad),
-      descripcion: nuevaDescripcion.trim(),
-      equipamiento: nuevoEquipamiento.split(',').map(s => s.trim()).filter(Boolean)
-    });
-
-    onActualizarDatos();
     setModalNuevoEspacio(false);
     setNuevoNombre('');
     setNuevaDescripcion('');
-    setMensajeAdmin('¡Nuevo espacio registrado exitosamente en el catálogo!');
+    setMensajeAdmin('Acción pendiente de backend: registrar nuevo espacio.');
     setTimeout(() => setMensajeAdmin(null), 3500);
   };
 
   const handleCambiarEstadoReserva = (idReserva, nuevoEstado) => {
-    reservasService.actualizarEstado(idReserva, nuevoEstado);
-    onActualizarDatos();
-    setMensajeAdmin(`La reserva fue actualizada a estado ${nuevoEstado}.`);
+    setMensajeAdmin(`Acción pendiente de backend: cambiar reserva a estado ${nuevoEstado}.`);
     setTimeout(() => setMensajeAdmin(null), 3500);
   };
 
-  // Filtrado de reservas
+  // Filtrado visual de reservas
   const reservasFiltradas = reservas.filter(r => {
     const matchBusqueda = 
       (r.usuarioNombre || '').toLowerCase().includes(busquedaReserva.toLowerCase()) ||

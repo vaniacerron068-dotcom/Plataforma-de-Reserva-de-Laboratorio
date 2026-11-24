@@ -13,7 +13,14 @@ import {
   ArrowRight,
   ExternalLink
 } from 'lucide-react';
-import { reservasService } from '../services/storageService';
+
+// =============================================================================
+// MisReservas.jsx — SOLO VISUAL (sin lógica de backend)
+// =============================================================================
+// Muestra las reservas de demo que se pasan por props.
+// La cancelación es solo visual (muestra mensaje indicando que el backend
+// debe implementar la funcionalidad real).
+// =============================================================================
 
 export default function MisReservas({ 
   reservas, 
@@ -34,16 +41,11 @@ export default function MisReservas({
     return r.estado === filtroEstado;
   });
 
+  // Cancelación visual (sin lógica real)
   const handleConfirmarCancelacion = (idReserva) => {
-    try {
-      reservasService.cancelarReserva(idReserva, usuarioActual.idUsuario);
-      onActualizarLista();
-      setIdReservaParaCancelar(null);
-      setFeedback({ tipo: 'exito', mensaje: 'La reserva ha sido cancelada exitosamente y el espacio fue liberado.' });
-      setTimeout(() => setFeedback(null), 4000);
-    } catch (err) {
-      setFeedback({ tipo: 'error', mensaje: err.message || 'Error al cancelar la reserva.' });
-    }
+    setIdReservaParaCancelar(null);
+    setFeedback({ tipo: 'info', mensaje: 'Funcionalidad de cancelación pendiente de implementación en el backend.' });
+    setTimeout(() => setFeedback(null), 4000);
   };
 
   return (

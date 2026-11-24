@@ -12,7 +12,15 @@ import {
   ShieldCheck,
   Building2
 } from 'lucide-react';
-import { authService } from '../services/storageService';
+import { USUARIOS_INICIALES } from '../data/initialData';
+
+// =============================================================================
+// AuthModal.jsx — SOLO VISUAL (sin lógica de backend)
+// =============================================================================
+// El formulario se renderiza completo visualmente.
+// Los accesos rápidos de demo funcionan con datos estáticos de initialData.
+// Login/Registro real está pendiente de implementación por el backend.
+// =============================================================================
 
 export default function AuthModal({ isOpen, onClose, onAuthExitosa }) {
   const [esRegistro, setEsRegistro] = useState(false);
@@ -28,33 +36,16 @@ export default function AuthModal({ isOpen, onClose, onAuthExitosa }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
-
-    try {
-      if (esRegistro) {
-        const usuario = authService.registrar({
-          nombres,
-          apellidos,
-          correo,
-          clave,
-          carrera
-        });
-        onAuthExitosa(usuario);
-        onClose();
-      } else {
-        const usuario = authService.iniciarSesion(correo, clave);
-        onAuthExitosa(usuario);
-        onClose();
-      }
-    } catch (err) {
-      setError(err.message || 'Error en la autenticación.');
-    }
+    // Visual only: muestra mensaje indicando que el backend no está implementado
+    setError('Funcionalidad pendiente de implementación en el backend. Usa los accesos rápidos de demostración.');
   };
 
+  // Acceso rápido con datos de demo (sin localStorage ni lógica real)
   const handleDemoLogin = (rol) => {
     setError('');
-    const u = authService.cambiarRolRapido(rol);
-    if (u) {
-      onAuthExitosa(u);
+    const usuario = USUARIOS_INICIALES.find(u => u.rol === rol);
+    if (usuario) {
+      onAuthExitosa(usuario);
       onClose();
     }
   };

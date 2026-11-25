@@ -7,17 +7,14 @@ import {
   Users, 
   CheckCircle2, 
   AlertCircle, 
-  FileText, 
-  Sparkles,
-  ArrowRight
+  FileText 
 } from 'lucide-react';
 
 // =============================================================================
 // ReservaModal.jsx — SOLO VISUAL (sin lógica de backend)
 // =============================================================================
 // El formulario se renderiza completo visualmente con todos sus pasos.
-// Al confirmar, genera una reserva de demo visual (sin persistencia).
-// La lógica real de creación de reservas la implementará el backend.
+// NO crea ni confirma reservas: la creación real la hace el backend.
 // =============================================================================
 
 export default function ReservaModal({ 
@@ -26,14 +23,13 @@ export default function ReservaModal({
   horarios, 
   usuarioActual, 
   isOpen, 
-  onClose, 
-  onReservaExitosa 
+  onClose 
 }) {
   const [fecha, setFecha] = useState('');
   const [idHorario, setIdHorario] = useState('');
   const [motivo, setMotivo] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [aviso, setAviso] = useState('');
 
   // Inicializar fecha por defecto
   useEffect(() => {
@@ -46,6 +42,7 @@ export default function ReservaModal({
       setIdHorario('');
       setMotivo('');
       setError('');
+      setAviso('');
     }
   }, [isOpen]);
 
@@ -70,6 +67,7 @@ export default function ReservaModal({
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
+    setAviso('');
 
     // Validaciones visuales básicas (solo UI, sin lógica de negocio)
     if (!fecha) {
@@ -85,33 +83,9 @@ export default function ReservaModal({
       return;
     }
 
-    // Generar reserva de demo visual (sin persistencia)
-    setLoading(true);
-    const horario = horarios.find(h => h.idHorario === Number(idHorario));
-    const codigoVerificacion = `LAB-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
-
-    const reservaDemo = {
-      idReserva: Date.now(),
-      idUsuario: usuarioActual?.idUsuario,
-      usuarioNombre: `${usuarioActual?.nombres} ${usuarioActual?.apellidos}`,
-      idEspacio: espacio.idEspacio,
-      espacioNombre: espacio.nombre,
-      idSede: espacio.idSede,
-      sedeNombre: sede ? sede.nombre : 'Sede Principal',
-      idHorario: Number(idHorario),
-      horarioEtiqueta: horario ? horario.etiqueta : 'Horario asignado',
-      fecha,
-      motivo: motivo.trim(),
-      estado: 'CONFIRMADA',
-      codigoVerificacion,
-      fechaRegistro: new Date().toISOString()
-    };
-
-    // Simular un breve delay visual
-    setTimeout(() => {
-      setLoading(false);
-      onReservaExitosa(reservaDemo);
-    }, 400);
+    // Sin lógica local: no se genera ninguna reserva ni código de verificación.
+    // El envío real (validación de colisiones, estado y comprobante) es del backend.
+    setAviso('Vista previa: el formulario es solo visual. La creación de reservas está pendiente de implementación en el backend.');
   };
 
   const fechaMinima = new Date().toISOString().split('T')[0];
@@ -122,7 +96,7 @@ export default function ReservaModal({
         {/* Cabecera del Modal */}
         <div className="modal-header-banner">
           <div>
-            <div className="modal-eyebrow">FORMULARIO OFICIAL DE RESERVA</div>
+            <div className="modal-eyebrow">FORMULARIO DE RESERVA · VISTA PREVIA</div>
             <h3 className="modal-title">{espacio.nombre}</h3>
             <div className="modal-subtitle-details">
               <span><MapPin size={13} /> {sede?.nombre || 'Sede Principal'}</span>
@@ -140,6 +114,14 @@ export default function ReservaModal({
           <div className="modal-error-box">
             <AlertCircle size={18} />
             <span>{error}</span>
+          </div>
+        )}
+
+        {/* Aviso: vista previa sin backend */}
+        {aviso && (
+          <div className="modal-error-box">
+            <AlertCircle size={18} />
+            <span>{aviso}</span>
           </div>
         )}
 
@@ -248,14 +230,10 @@ export default function ReservaModal({
             <button 
               type="submit" 
               className="btn-modal-confirm"
-              disabled={loading || !idHorario || !fecha || !motivo.trim()}
+              disabled={!idHorario || !fecha || !motivo.trim()}
             >
-              {loading ? 'Procesando...' : (
-                <>
-                  <CheckCircle2 size={16} />
-                  <span>Confirmar Reserva Inmediata</span>
-                </>
-              )}
+              <CheckCircle2 size={16} />
+              <span>Confirmar Reserva</span>
             </button>
           </div>
         </form>

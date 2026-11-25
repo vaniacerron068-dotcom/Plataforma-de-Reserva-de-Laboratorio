@@ -1,73 +1,41 @@
-# EduLab - Sistema de Reserva de Laboratorios y Aulas
+# EduLab — Frontend (solo visual)
 
-Plataforma frontend moderna, interactiva y responsiva para la gestión académica y reserva de laboratorios de cómputo, aulas especializadas y talleres universitarios.
+Interfaz de la plataforma de reserva de laboratorios y aulas universitarias. **Es una maqueta de diseño: no contiene lógica de backend.**
 
----
+## Tecnologías
 
-## 🚀 Tecnologías Utilizadas
+- React 19
+- Vite
+- Lucide React (iconografía)
+- CSS con variables y glassmorphism
 
-- **React 19**
-- **Vite**
-- **Lucide React** (Iconografía moderna)
-- **CSS Modular con Variables & Glassmorphism**
-- **LocalStorage Storage Engine** (Simulación fiel del modelo de datos `reservas_academicas.sql` y reglas de negocio de `ReservaServicio.java` y `AutenticacionServicio.java`).
+## Características visuales
 
----
+1. **Catálogo de espacios**: búsqueda y filtros por sede, tipo y estado; fichas con capacidad y equipamiento.
+2. **Formulario de reserva**: fecha, bloque horario y motivo. **No crea reservas**: al enviar muestra el aviso de que la creación está pendiente en el backend.
+3. **Portal del estudiante**: listado de reservas de ejemplo, filtros por estado y comprobante con QR decorativo (marcado como demostración).
+4. **Panel administrativo**: KPIs y tablas de espacios y reservas. Las acciones (crear espacio, cambiar estado, aprobar/cancelar) solo muestran avisos.
+5. **Autenticación**: formularios de login y registro visuales. Los botones de rol y el selector del navbar son **vista previa**, sin autenticación real.
 
-## ✨ Características Principales
+## Datos
 
-1. **Catálogo Interactivo de Espacios**:
-   - Búsqueda en tiempo real por texto (nombre, equipamiento, descripción).
-   - Filtros reactivos por Sede (Campus Central, San Isidro, etc.), Tipo (Laboratorio, Aula) y Estado (Disponible, En Mantenimiento).
-   - Fichas informativas con capacidad de aforo, equipamiento tecnológico e insignias de estado.
+Los datos de ejemplo viven en `src/data/initialData.js` y **no se persisten** (sin `localStorage` ni API). Los stubs de `src/services/storageService.js` indican qué debe implementar el backend.
 
-2. **Módulo de Reservas con Detección de Conflictos**:
-   - Calendario selector de fecha con validación de fechas pasadas.
-   - Bloques horarios disponibles con detección de colisiones en tiempo real.
-   - Sugerencias rápidas de motivos académicos (talleres, prácticas libres, tesis).
-
-3. **Portal del Estudiante ("Mis Reservas")**:
-   - Listado de reservas activas, canceladas e históricas.
-   - Posibilidad de cancelar reservas y liberar el espacio inmediatamente.
-   - **Pase Digital Imprimible**: Comprobante oficial con código QR y código de verificación alfanumérico.
-
-4. **Panel de Control Administrativo (Admin Dashboard)**:
-   - Métricas y KPIs globales (espacios operativos, aforo simultáneo, reservas activas).
-   - Alternancia rápida del estado de un laboratorio (Disponible ⟷ Mantenimiento).
-   - Registro de nuevos espacios y aulas especializadas.
-   - Maestro de reservas con filtrado por estado y opciones de aprobación / rechazo.
-
-5. **Sistema de Autenticación & Demo Switcher**:
-   - Inicio de sesión y registro de estudiantes con validación de correo y contraseña (mínimo 8 caracteres).
-   - Selector rápido de roles en el Navbar para alternar al instante entre **Estudiante** y **Administrador**.
-
----
-
-## 🛠️ Instrucciones de Instalación y Ejecución
+## Ejecución
 
 ```bash
-# 1. Navegar a la carpeta frontend
-cd frontend
-
-# 2. Instalar dependencias
 npm install
-
-# 3. Iniciar el servidor de desarrollo
-npm run dev
+npm run dev      # http://localhost:5173
+npm run lint     # oxlint
+npm run build    # dist/
 ```
 
-El aplicativo estará disponible en `http://localhost:5173`.
+## Estructura
 
----
-
-## 👥 Cuentas de Prueba Incluidas
-
-- **Estudiante**:
-  - Correo: `estudiante@universidad.edu.pe`
-  - Contraseña: `Password123!`
-  - Rol: `ESTUDIANTE`
-
-- **Administrador**:
-  - Correo: `admin@universidad.edu.pe`
-  - Contraseña: `AdminPassword123!`
-  - Rol: `ADMINISTRADOR`
+```
+src/
+├── App.jsx                 # Vistas y modales (estado solo en memoria)
+├── components/             # Navbar, catálogo, modales, dashboard, etc.
+├── data/initialData.js     # Datos de ejemplo
+└── services/storageService.js  # Stubs con TODOs para el backend
+```

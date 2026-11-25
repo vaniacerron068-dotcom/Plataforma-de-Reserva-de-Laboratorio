@@ -43,24 +43,6 @@ jobs:
         with:
           path: frontend/dist
 
-      - name: Configurar Java 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-          cache: maven
-          cache-dependency-path: PlataformaReservas/pom.xml
-
-      - name: Empaquetar backend (JAR)
-        run: mvn -B clean package -DskipTests
-        working-directory: PlataformaReservas
-
-      - name: Guardar JAR del backend
-        uses: actions/upload-artifact@v4
-        with:
-          name: backend-jar
-          path: PlataformaReservas/target/*.jar
-
   deploy:
     name: Desplegar frontend en GitHub Pages
     needs: build

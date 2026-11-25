@@ -11,27 +11,6 @@ on:
       - develop
 
 jobs:
-  backend:
-    name: Compilar backend (Java 17 + Maven)
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: PlataformaReservas
-    steps:
-      - name: Clonar repositorio
-        uses: actions/checkout@v4
-
-      - name: Configurar Java 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-          cache: maven
-          cache-dependency-path: PlataformaReservas/pom.xml
-
-      - name: Compilar y validar proyecto
-        run: mvn -B clean verify
-
   frontend:
     name: Validar frontend (React + Vite)
     runs-on: ubuntu-latest

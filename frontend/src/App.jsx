@@ -65,14 +65,6 @@ export default function App() {
     setReservaModalOpen(true);
   };
 
-  const handleReservaExitosa = (nuevaReserva) => {
-    // Visual only: cierra modal y muestra comprobante de demo
-    setReservaModalOpen(false);
-    setReservaParaComprobante(nuevaReserva);
-    setComprobanteModalOpen(true);
-    mostrarToast(`¡Reserva visual de demostración! Código: ${nuevaReserva.codigoVerificacion}`, 'exito');
-  };
-
   // Cambiar rol de usuario (solo visual para demo)
   const handleCambiarRol = (nuevoRol) => {
     const usuarioCambiado = USUARIOS_INICIALES.find(u => u.rol === nuevoRol);
@@ -227,7 +219,6 @@ export default function App() {
         usuarioActual={usuarioActual}
         isOpen={reservaModalOpen}
         onClose={() => setReservaModalOpen(false)}
-        onReservaExitosa={handleReservaExitosa}
       />
 
       {/* Modal de Comprobante / Pase Digital */}

@@ -81,13 +81,13 @@ export default function Navbar({
                 </span>
               </div>
 
-              {/* Botón rápido para alternar roles en demo */}
+              {/* Botón de vista previa de rol (solo maqueta) */}
               <button 
                 className="btn-switch-role" 
-                title={`Cambiar a ${esAdmin ? 'Estudiante' : 'Administrador'}`}
+                title={`Vista previa como ${esAdmin ? 'Estudiante' : 'Administrador'} (sin autenticación)`}
                 onClick={() => onCambiarRol(esAdmin ? 'ESTUDIANTE' : 'ADMINISTRADOR')}
               >
-                Cambiar a {esAdmin ? 'Estudiante' : 'Admin'}
+                Vista previa: {esAdmin ? 'Estudiante' : 'Admin'}
               </button>
 
               <button 

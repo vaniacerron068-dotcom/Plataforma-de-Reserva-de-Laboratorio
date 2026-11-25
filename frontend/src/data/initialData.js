@@ -1,4 +1,4 @@
-// Datos iniciales alineados con reservas_academicas.sql y ampliados para una experiencia completa
+// Datos de ejemplo (solo demo visual, sin persistencia) para renderizar la interfaz
 
 export const SEDES_INICIALES = [
   {

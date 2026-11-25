@@ -77,9 +77,9 @@ export default function AuthModal({ isOpen, onClose, onAuthExitosa }) {
           </div>
         )}
 
-        {/* Acceso Rápido Demo */}
+        {/* Vista previa de roles (sin autenticación real) */}
         <div className="demo-shortcuts-box">
-          <span className="demo-label">Accesos rápidos de demostración:</span>
+          <span className="demo-label">Vista previa de roles (sin autenticación):</span>
           <div className="demo-buttons-row">
             <button 
               type="button" 
@@ -87,7 +87,7 @@ export default function AuthModal({ isOpen, onClose, onAuthExitosa }) {
               onClick={() => handleDemoLogin('ESTUDIANTE')}
             >
               <GraduationCap size={15} />
-              <span>Entrar como Estudiante</span>
+              <span>Ver como Estudiante</span>
             </button>
             <button 
               type="button" 
@@ -95,7 +95,7 @@ export default function AuthModal({ isOpen, onClose, onAuthExitosa }) {
               onClick={() => handleDemoLogin('ADMINISTRADOR')}
             >
               <ShieldCheck size={15} />
-              <span>Entrar como Administrador</span>
+              <span>Ver como Administrador</span>
             </button>
           </div>
         </div>

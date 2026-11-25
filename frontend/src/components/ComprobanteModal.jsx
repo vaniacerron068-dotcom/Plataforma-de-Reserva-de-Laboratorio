@@ -29,7 +29,7 @@ export default function ComprobanteModal({ reserva, isOpen, onClose }) {
             <Building2 size={20} className="brand-icon" />
             <div>
               <div className="ticket-brand-name">EduLab &bull; Sistema Académico</div>
-              <div className="ticket-brand-sub">Comprobante Oficial de Reserva</div>
+              <div className="ticket-brand-sub">Comprobante de Reserva · Vista previa</div>
             </div>
           </div>
           <button className="btn-modal-close" onClick={onClose}>
@@ -123,7 +123,7 @@ export default function ComprobanteModal({ reserva, isOpen, onClose }) {
 
           <div className="ticket-footer-note">
             <ShieldCheck size={14} />
-            <span>Documento emitido electrónicamente por la Plataforma Universitaria EduLab.</span>
+            <span>Documento de demostración sin validez oficial. El comprobante real será emitido por el backend.</span>
           </div>
         </div>
 
